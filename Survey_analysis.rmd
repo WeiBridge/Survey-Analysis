@@ -1,0 +1,656 @@
+---
+title: "BF Survey Data"
+author: "Wei"
+date: '2019-09-11'
+output: word_document
+---
+
+```{r setup, include=FALSE}
+#install.packages('knitr')
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r}
+df <- read.csv("survey_new.csv", header = TRUE, fileEncoding="UTF-8-BOM")
+df1 <- df[,-19]
+summary(df1)
+```
+
+
+
+```{r Q1}
+q1_time1 = df1$Q1[df1$Time==1]
+q1_time2 = df1$Q1[df1$Time==2]
+
+mytab2 = ftable(q1_time2, q1_time1)
+mytab2
+
+
+plot(q1_time1, jitter(q1_time2),
+     pch = 16,
+     cex = 1.0,
+     xlim = c(1, 6.6),
+     ylim = c(1, 6.6),
+     xlab = "Pre Survey",
+     ylab = "Post Survey")
+abline(0,1, col="blue", lwd=2)
+
+Difference = q1_time2 - q1_time1
+barplot(Difference,  
+        col="dark gray",
+        xlab="Observation",
+        ylab="Difference (Post Survey – Pre Survey)")
+
+##Two sample paired ordinal model
+
+df1$Q1.f = factor(df1$Q1, ordered = TRUE)
+
+#install.packages('ordinal')
+library(ordinal)
+
+model_1 = clmm(Q1.f ~ Time + (1|Participant),
+             data = df1)
+#install.packages('car')
+library(car)
+#install.packages('RVAideMemoire')
+library(RVAideMemoire)
+
+Anova(model_1, type = "II")
+
+
+```
+```{r Q2 which contains NAs}
+
+q2_time1 = df1$Q2[df1$Time==1]
+q2_time2 = df1$Q2[df1$Time==2]
+
+
+ftable(q2_time2, q2_time1)
+
+plot(q2_time1, jitter(q2_time2),
+     pch = 16,
+     cex = 1.0,
+     xlim = c(1, 6.6),
+     ylim = c(1, 6.6),
+     xlab = "Pre Survey",
+     ylab = "Post Survey")
+abline(0,1, col="blue", lwd=2)
+
+Difference = q2_time2 - q2_time1
+barplot(Difference,  
+        col="dark gray",
+        xlab="Observation",
+        ylab="Difference (Post Survey – Pre Survey)")
+
+##Two sample paired ordinal model
+
+df1$Q2.f = factor(df1$Q2, ordered = TRUE)
+
+#install.packages('ordinal')
+library(ordinal)
+
+model_2 = clmm(Q2.f ~ Time + (1|Participant), na.action = na.omit,
+             data = df1)
+#install.packages('car')
+library(car)
+#install.packages('RVAideMemoire')
+library(RVAideMemoire)
+
+Anova(model_2, type = "II")
+
+```
+```{r Q3 which contains NAs}
+q3_time1 = df1$Q3[df1$Time==1]
+q3_time2 = df1$Q3[df1$Time==2]
+
+ftable(q3_time2, q3_time1)
+
+plot(q3_time1, jitter(q3_time2),
+     pch = 16,
+     cex = 1.0,
+     xlim = c(1, 6.6),
+     ylim = c(1, 6.6),
+     xlab = "Pre Survey",
+     ylab = "Post Survey")
+abline(0,1, col="blue", lwd=2)
+
+Difference = q3_time2 - q3_time1
+barplot(Difference,  
+        col="dark gray",
+        xlab="Observation",
+        ylab="Difference (Post Survey – Pre Survey)")
+
+##Two sample paired ordinal model
+
+df1$Q3.f = factor(df1$Q3, ordered = TRUE)
+
+#install.packages('ordinal')
+library(ordinal)
+
+model_3 = clmm(Q3.f ~ Time + (1|Participant), na.action = na.omit,
+             data = df1)
+#install.packages('car')
+library(car)
+#install.packages('RVAideMemoire')
+library(RVAideMemoire)
+
+Anova(model_3, type = "II")
+
+```
+```{r Q4}
+q4_time1 = df1$Q4[df1$Time==1]
+q4_time2 = df1$Q4[df1$Time==2]
+
+ftable(q4_time2, q4_time1)
+
+plot(q4_time1, jitter(q4_time2),
+     pch = 16,
+     cex = 1.0,
+     xlim = c(1, 6.6),
+     ylim = c(1, 6.6),
+     xlab = "Pre Survey",
+     ylab = "Post Survey")
+abline(0,1, col="blue", lwd=2)
+
+Difference = q4_time2 - q4_time1
+barplot(Difference,  
+        col="dark gray",
+        xlab="Observation",
+        ylab="Difference (Post Survey – Pre Survey)")
+
+##Two sample paired ordinal model
+
+df1$Q4.f = factor(df1$Q4, ordered = TRUE)
+
+#install.packages('ordinal')
+library(ordinal)
+
+model_4 = clmm(Q4.f ~ Time + (1|Participant),
+             data = df1)
+#install.packages('car')
+library(car)
+#install.packages('RVAideMemoire')
+library(RVAideMemoire)
+
+Anova(model_4, type = "II")
+
+```
+
+```{r Q5}
+q5_time1 = df1$Q5[df1$Time==1]
+q5_time2 = df1$Q5[df1$Time==2]
+
+ftable(q5_time2, q5_time1)
+
+plot(q5_time1, jitter(q5_time2),
+     pch = 16,
+     cex = 1.0,
+     xlim = c(1, 6.6),
+     ylim = c(1, 6.6),
+     xlab = "Pre Survey",
+     ylab = "Post Survey")
+abline(0,1, col="blue", lwd=2)
+
+Difference = q5_time2 - q5_time1
+barplot(Difference,  
+        col="dark gray",
+        xlab="Observation",
+        ylab="Difference (Post Survey – Pre Survey)")
+
+##Two sample paired ordinal model
+
+df1$Q5.f = factor(df1$Q5, ordered = TRUE)
+
+#install.packages('ordinal')
+library(ordinal)
+
+model_5 = clmm(Q5.f ~ Time + (1|Participant),
+             data = df1)
+#install.packages('car')
+library(car)
+#install.packages('RVAideMemoire')
+library(RVAideMemoire)
+
+Anova(model_5, type = "II")
+
+```
+
+```{r Q6}
+q6_time1 = df1$Q6[df1$Time==1]
+q6_time2 = df1$Q6[df1$Time==2]
+
+ftable(q6_time2, q6_time1)
+
+plot(q6_time1, jitter(q6_time2),
+     pch = 16,
+     cex = 1.0,
+     xlim = c(1, 6.6),
+     ylim = c(1, 6.6),
+     xlab = "Pre Survey",
+     ylab = "Post Survey")
+abline(0,1, col="blue", lwd=2)
+
+Difference = q6_time2 - q6_time1
+barplot(Difference,  
+        col="dark gray",
+        xlab="Observation",
+        ylab="Difference (Post Survey – Pre Survey)")
+
+##Two sample paired ordinal model
+
+df1$Q6.f = factor(df1$Q6, ordered = TRUE)
+
+#install.packages('ordinal')
+library(ordinal)
+
+model_6 = clmm(Q6.f ~ Time + (1|Participant),
+             data = df1)
+#install.packages('car')
+library(car)
+#install.packages('RVAideMemoire')
+library(RVAideMemoire)
+
+Anova(model_6, type = "II")
+
+```
+
+```{r Q7}
+q7_time1 = df1$Q7[df1$Time==1]
+q7_time2 = df1$Q7[df1$Time==2]
+
+ftable(q7_time2, q7_time1)
+
+plot(q7_time1, jitter(q7_time2),
+     pch = 16,
+     cex = 1.0,
+     xlim = c(1, 6.6),
+     ylim = c(1, 6.6),
+     xlab = "Pre Survey",
+     ylab = "Post Survey")
+abline(0,1, col="blue", lwd=2)
+
+Difference = q7_time2 - q7_time1
+barplot(Difference,  
+        col="dark gray",
+        xlab="Observation",
+        ylab="Difference (Post Survey – Pre Survey)")
+
+##Two sample paired ordinal model
+
+df1$Q7.f = factor(df1$Q7, ordered = TRUE)
+
+#install.packages('ordinal')
+library(ordinal)
+
+model_7 = clmm(Q7.f ~ Time + (1|Participant),
+             data = df1)
+#install.packages('car')
+library(car)
+#install.packages('RVAideMemoire')
+library(RVAideMemoire)
+
+Anova(model_7, type = "II")
+
+```
+
+```{r Q8}
+q8_time1 = df1$Q8[df1$Time==1]
+q8_time2 = df1$Q8[df1$Time==2]
+
+ftable(q8_time2, q8_time1)
+
+plot(q8_time1, jitter(q8_time2),
+     pch = 16,
+     cex = 1.0,
+     xlim = c(1, 6.6),
+     ylim = c(1, 6.6),
+     xlab = "Pre Survey",
+     ylab = "Post Survey")
+abline(0,1, col="blue", lwd=2)
+
+Difference = q8_time2 - q8_time1
+barplot(Difference,  
+        col="dark gray",
+        xlab="Observation",
+        ylab="Difference (Post Survey – Pre Survey)")
+
+##Two sample paired ordinal model
+
+df1$Q8.f = factor(df1$Q8, ordered = TRUE)
+
+#install.packages('ordinal')
+library(ordinal)
+
+model_8 = clmm(Q8.f ~ Time + (1|Participant),
+             data = df1)
+#install.packages('car')
+library(car)
+#install.packages('RVAideMemoire')
+library(RVAideMemoire)
+
+Anova(model_8, type = "II")
+
+```
+
+```{r Q9}
+q9_time1 = df1$Q9[df1$Time==1]
+q9_time2 = df1$Q9[df1$Time==2]
+
+ftable(q9_time2, q9_time1)
+
+plot(q9_time1, jitter(q9_time2),
+     pch = 16,
+     cex = 1.0,
+     xlim = c(1, 6.6),
+     ylim = c(1, 6.6),
+     xlab = "Pre Survey",
+     ylab = "Post Survey")
+abline(0,1, col="blue", lwd=2)
+
+Difference = q9_time2 - q9_time1
+barplot(Difference,  
+        col="dark gray",
+        xlab="Observation",
+        ylab="Difference (Post Survey – Pre Survey)")
+
+##Two sample paired ordinal model
+
+df1$Q9.f = factor(df1$Q9, ordered = TRUE)
+
+#install.packages('ordinal')
+library(ordinal)
+
+model_9 = clmm(Q9.f ~ Time + (1|Participant),
+             data = df1)
+#install.packages('car')
+library(car)
+#install.packages('RVAideMemoire')
+library(RVAideMemoire)
+
+Anova(model_9, type = "II")
+
+```
+
+```{r Q10}
+q10_time1 = df1$Q10[df1$Time==1]
+q10_time2 = df1$Q10[df1$Time==2]
+
+ftable(q10_time2, q10_time1)
+
+plot(q10_time1, jitter(q10_time2),
+     pch = 16,
+     cex = 1.0,
+     xlim = c(1, 6.6),
+     ylim = c(1, 6.6),
+     xlab = "Pre Survey",
+     ylab = "Post Survey")
+abline(0,1, col="blue", lwd=2)
+
+Difference = q10_time2 - q10_time1
+barplot(Difference,  
+        col="dark gray",
+        xlab="Observation",
+        ylab="Difference (Post Survey – Pre Survey)")
+
+##Two sample paired ordinal model
+
+df1$Q10.f = factor(df1$Q10, ordered = TRUE)
+
+#install.packages('ordinal')
+library(ordinal)
+
+model_10 = clmm(Q10.f ~ Time + (1|Participant),
+             data = df1)
+#install.packages('car')
+library(car)
+#install.packages('RVAideMemoire')
+library(RVAideMemoire)
+
+Anova(model_10, type = "II")
+
+```
+
+```{r Q11}
+q11_time1 = df1$Q11[df1$Time==1]
+q11_time2 = df1$Q11[df1$Time==2]
+
+ftable(q11_time2, q11_time1)
+
+plot(q11_time1, jitter(q11_time2),
+     pch = 16,
+     cex = 1.0,
+     xlim = c(1, 6.6),
+     ylim = c(1, 6.6),
+     xlab = "Pre Survey",
+     ylab = "Post Survey")
+abline(0,1, col="blue", lwd=2)
+
+Difference = q11_time2 - q11_time1
+barplot(Difference,  
+        col="dark gray",
+        xlab="Observation",
+        ylab="Difference (Post Survey – Pre Survey)")
+
+##Two sample paired ordinal model
+
+df1$Q11.f = factor(df1$Q11, ordered = TRUE)
+
+#install.packages('ordinal')
+library(ordinal)
+
+model_11 = clmm(Q11.f ~ Time + (1|Participant),
+             data = df1)
+#install.packages('car')
+library(car)
+#install.packages('RVAideMemoire')
+library(RVAideMemoire)
+
+Anova(model_11, type = "II")
+
+```
+
+```{r Q12 which contains NAs}
+q12_time1 = df1$Q12[df1$Time==1]
+q12_time2 = df1$Q12[df1$Time==2]
+
+ftable(q12_time2, q12_time1)
+
+plot(q12_time1, jitter(q12_time2),
+     pch = 16,
+     cex = 1.0,
+     xlim = c(1, 6.6),
+     ylim = c(1, 6.6),
+     xlab = "Pre Survey",
+     ylab = "Post Survey")
+abline(0,1, col="blue", lwd=2)
+
+Difference = q12_time2 - q12_time1
+barplot(Difference,  
+        col="dark gray",
+        xlab="Observation",
+        ylab="Difference (Post Survey – Pre Survey)")
+
+##Two sample paired ordinal model
+
+df1$Q12.f = factor(df1$Q12, ordered = TRUE)
+
+#install.packages('ordinal')
+library(ordinal)
+
+model_12 = clmm(Q12.f ~ Time + (1|Participant), na.action = na.omit,
+             data = df1)
+#install.packages('car')
+library(car)
+#install.packages('RVAideMemoire')
+library(RVAideMemoire)
+
+Anova(model_12, type = "II")
+
+```
+
+```{r Q13}
+q13_time1 = df1$Q13[df1$Time==1]
+q13_time2 = df1$Q13[df1$Time==2]
+
+ftable(q13_time2, q13_time1)
+
+plot(q13_time1, jitter(q13_time2),
+     pch = 16,
+     cex = 1.0,
+     xlim = c(1, 6.6),
+     ylim = c(1, 6.6),
+     xlab = "Pre Survey",
+     ylab = "Post Survey")
+abline(0,1, col="blue", lwd=2)
+
+Difference = q13_time2 - q13_time1
+barplot(Difference,  
+        col="dark gray",
+        xlab="Observation",
+        ylab="Difference (Post Survey – Pre Survey)")
+
+##Two sample paired ordinal model
+
+df1$Q13.f = factor(df1$Q13, ordered = TRUE)
+
+#install.packages('ordinal')
+library(ordinal)
+
+model_13 = clmm(Q13.f ~ Time + (1|Participant),
+             data = df1)
+#install.packages('car')
+library(car)
+#install.packages('RVAideMemoire')
+library(RVAideMemoire)
+
+Anova(model_13, type = "II")
+
+```
+
+```{r Q14}
+q14_time1 = df1$Q14[df1$Time==1]
+q14_time2 = df1$Q14[df1$Time==2]
+
+ftable(q14_time2, q14_time1)
+
+plot(q14_time1, jitter(q14_time2),
+     pch = 16,
+     cex = 1.0,
+     xlim = c(1, 6.6),
+     ylim = c(1, 6.6),
+     xlab = "Pre Survey",
+     ylab = "Post Survey")
+abline(0,1, col="blue", lwd=2)
+
+Difference = q14_time2 - q14_time1
+barplot(Difference,  
+        col="dark gray",
+        xlab="Observation",
+        ylab="Difference (Post Survey – Pre Survey)")
+
+##Two sample paired ordinal model
+
+df1$Q14.f = factor(df1$Q14, ordered = TRUE)
+
+#install.packages('ordinal')
+library(ordinal)
+
+model_14 = clmm(Q14.f ~ Time + (1|Participant),
+             data = df1)
+#install.packages('car')
+library(car)
+#install.packages('RVAideMemoire')
+library(RVAideMemoire)
+
+Anova(model_14, type = "II")
+
+```
+
+```{r Q15}
+q15_time1 = df1$Q15[df1$Time==1]
+q15_time2 = df1$Q15[df1$Time==2]
+
+ftable(q15_time2, q15_time1)
+
+plot(q15_time1, jitter(q15_time2),
+     pch = 16,
+     cex = 1.0,
+     xlim = c(1, 6.6),
+     ylim = c(1, 6.6),
+     xlab = "Pre Survey",
+     ylab = "Post Survey")
+abline(0,1, col="blue", lwd=2)
+
+Difference = q15_time2 - q15_time1
+barplot(Difference,  
+        col="dark gray",
+        xlab="Observation",
+        ylab="Difference (Post Survey – Pre Survey)")
+
+##Two sample paired ordinal model
+
+df1$Q15.f = factor(df1$Q15, ordered = TRUE)
+
+#install.packages('ordinal')
+library(ordinal)
+
+model_15 = clmm(Q15.f ~ Time + (1|Participant),
+             data = df1)
+#install.packages('car')
+library(car)
+#install.packages('RVAideMemoire')
+library(RVAideMemoire)
+
+Anova(model_15, type = "II")
+
+```
+
+```{r Q16}
+q16_time1 = df1$Q16[df1$Time==1]
+q16_time2 = df1$Q16[df1$Time==2]
+
+ftable(q16_time2, q16_time1)
+
+plot(q16_time1, jitter(q16_time2),
+     pch = 16,
+     cex = 1.0,
+     xlim = c(1, 6.6),
+     ylim = c(1, 6.6),
+     xlab = "Pre Survey",
+     ylab = "Post Survey")
+abline(0,1, col="blue", lwd=2)
+
+Difference = q16_time2 - q16_time1
+barplot(Difference,  
+        col="dark gray",
+        xlab="Observation",
+        ylab="Difference (Post Survey – Pre Survey)")
+
+##Two sample paired ordinal model
+
+df1$Q16.f = factor(df1$Q16, ordered = TRUE)
+
+#install.packages('ordinal')
+library(ordinal)
+
+model_16 = clmm(Q16.f ~ Time + (1|Participant),
+             data = df1)
+#install.packages('car')
+library(car)
+#install.packages('RVAideMemoire')
+library(RVAideMemoire)
+
+Anova(model_16, type = "II")
+
+```
+
+```{r}
+
+```
+
